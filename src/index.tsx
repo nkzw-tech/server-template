@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import { createYoga } from 'graphql-yoga';
+import { ServerContext } from './context.tsx';
 import schema from './graphql/schema.tsx';
 import { getClientDomain, setClientDomain } from './lib/ClientDomain.tsx';
 import env from './lib/env.tsx';
@@ -83,11 +84,7 @@ app.use(
   },
 );
 
-const yoga = createYoga({
-  context: (request) => ({
-    sessionUser: (request as unknown as { req: { user: SessionUser } }).req
-      .user,
-  }),
+const yoga = createYoga<ServerContext>({
   graphiql: process.env.NODE_ENV === 'development',
   schema,
 });

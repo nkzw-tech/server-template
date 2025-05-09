@@ -82,5 +82,6 @@
     "patchedDependencies": {
       "prisma-json-types-generator": "patches/prisma-json-types-generator.patch"
     }
-  }
+  },
+  "packageManager": "pnpm@10.10.0"
 }
