@@ -102,7 +102,7 @@ builder.queryFields((t) => ({
       context.req.user
         ? prisma.user.findUniqueOrThrow({
             ...query,
-          where: { id: context.req.user.id },
+            where: { id: context.req.user.id },
           })
         : void query.include,
     type: 'User',

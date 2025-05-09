@@ -3,12 +3,12 @@ import ComplexityPlugin from '@pothos/plugin-complexity';
 import DirectivePlugin from '@pothos/plugin-directives';
 import PrismaPlugin from '@pothos/plugin-prisma';
 import RelayPlugin from '@pothos/plugin-relay';
+import { Context } from '../context.tsx';
 import PrismaTypes from '../prisma/pothos-types.ts';
 import { Role } from '../prisma/prisma-client/client.ts';
 import prisma from '../prisma/prisma.tsx';
 import decodeGlobalID from './lib/decodeGlobalID.tsx';
 import encodeGlobalID from './lib/encodeGlobalID.tsx';
-import { Context } from '../context.tsx';
 
 const builder = new SchemaBuilder<{
   Context: Context;

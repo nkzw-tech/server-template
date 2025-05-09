@@ -6,13 +6,13 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import { createYoga } from 'graphql-yoga';
+import { ServerContext } from './context.tsx';
 import schema from './graphql/schema.tsx';
 import { getClientDomain, setClientDomain } from './lib/ClientDomain.tsx';
 import env from './lib/env.tsx';
 import prisma from './prisma/prisma.tsx';
 import installAuthMiddleware from './user/installAuthMiddleware.tsx';
 import { SessionUser } from './user/SessionUser.tsx';
-import { ServerContext } from './context.tsx';
 
 try {
   await prisma.$connect();

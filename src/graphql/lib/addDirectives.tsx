@@ -1,8 +1,8 @@
 import { MapperKind, mapSchema } from '@graphql-tools/utils';
 import { defaultFieldResolver, GraphQLSchema } from 'graphql';
+import { Context } from '../../context.tsx';
 import { Role } from '../../prisma/prisma-client/client.ts';
 import isAdmin from '../../user/isAdmin.tsx';
-import { Context } from '../../context.tsx';
 
 export default function addDirectives(schema: GraphQLSchema) {
   return mapSchema(schema, {
