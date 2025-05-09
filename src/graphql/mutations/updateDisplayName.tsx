@@ -10,7 +10,8 @@ builder.mutationField('updateDisplayName', (t) =>
     directives: {
       requiresAuth: { role: 'User' },
     },
-    resolve: async (query, _, { displayName }, { sessionUser }) => {
+    resolve: async (query, _, { displayName }, context) => {
+      const sessionUser = context.req.user;
       const user =
         sessionUser &&
         (await prisma.user.findUniqueOrThrow({
@@ -29,13 +30,13 @@ builder.mutationField('updateDisplayName', (t) =>
         throw new Error('invalid-display-name');
       }
 
-      return await prisma.user.update({
+      return prisma.user.update({
         ...query,
         data: {
           displayName,
         },
         where: {
-          id: user.id,
+          id: user?.id,
         },
       });
     },

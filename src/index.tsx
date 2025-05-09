@@ -12,6 +12,7 @@ import env from './lib/env.tsx';
 import prisma from './prisma/prisma.tsx';
 import installAuthMiddleware from './user/installAuthMiddleware.tsx';
 import { SessionUser } from './user/SessionUser.tsx';
+import { ServerContext } from './context.tsx';
 
 try {
   await prisma.$connect();
@@ -83,11 +84,7 @@ app.use(
   },
 );
 
-const yoga = createYoga({
-  context: (request) => ({
-    sessionUser: (request as unknown as { req: { user: SessionUser } }).req
-      .user,
-  }),
+const yoga = createYoga<ServerContext>({
   graphiql: process.env.NODE_ENV === 'development',
   schema,
 });

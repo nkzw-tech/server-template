@@ -2,7 +2,7 @@ import { MapperKind, mapSchema } from '@graphql-tools/utils';
 import { defaultFieldResolver, GraphQLSchema } from 'graphql';
 import { Role } from '../../prisma/prisma-client/client.ts';
 import isAdmin from '../../user/isAdmin.tsx';
-import { Context } from '../context.tsx';
+import { Context } from '../../context.tsx';
 
 export default function addDirectives(schema: GraphQLSchema) {
   return mapSchema(schema, {
@@ -19,7 +19,7 @@ export default function addDirectives(schema: GraphQLSchema) {
         const role = directive?.role;
         const { resolve = defaultFieldResolver } = fieldConfig;
         fieldConfig.resolve = (source, args, context: Context, info) => {
-          const { sessionUser } = context;
+          const sessionUser = context.req.user;
           if (directiveName === 'requiresAuth') {
             if (
               !sessionUser ||

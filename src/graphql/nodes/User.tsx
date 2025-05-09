@@ -98,11 +98,11 @@ builder.queryFields((t) => ({
     type: 'User',
   }),
   viewer: t.prismaField({
-    resolve: (query, root, args, { sessionUser }) =>
-      sessionUser
+    resolve: (query, root, args, context) =>
+      context.req.user
         ? prisma.user.findUniqueOrThrow({
             ...query,
-            where: { id: sessionUser.id },
+          where: { id: context.req.user.id },
           })
         : void query.include,
     type: 'User',
