@@ -36,12 +36,13 @@ const {
     },
   },
 });
-const port = (portArg && parseInteger(portArg)) || 9000;
-const domain = getClientDomain();
 
 if (process.env.NODE_ENV === 'development') {
   setClientDomain(env('DEVELOPMENT_DOMAIN'));
 }
+
+const port = (portArg && parseInteger(portArg)) || 9000;
+const domain = getClientDomain();
 
 const origin = (
   origin: unknown,

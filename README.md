@@ -22,7 +22,7 @@ You'll need Node.js 23+ and pnpm 10+ to use this template.
 
 - Start here: [Create a new app using this template](https://github.com/new?template_name=server-template&template_owner=nkzw-tech).
 - Run `pnpm install`.
-- Set up a Postgres database locally and add the connection string to `.env` as `DATABASE_URL`.
+- Set up a Postgres database locally and add the connection string to `.env` as `DATABASE_URL` or run `docker-compose up -d` to start postgres in a docker container.
 - `pnpm prisma migrate dev` to create the database and run the migrations.
 - Run `pnpm dev` to start the server.
 - Open `http://localhost:9000/graphql` in your browser to see the GraphiQL, a GraphQL playground.
@@ -97,7 +97,7 @@ Then we use Pothos to define which fields we want to expose to clients via Graph
 builder.prismaNode('User', {
   fields: (t) => ({
     access: t.field({
-      directives: { self: {} },
+      authScopes: (user) => ({ self: user.id })
       resolve: ({ access }) => access,
       type: RoleEnum,
     }),
@@ -110,11 +110,11 @@ builder.prismaNode('User', {
     }),
     displayName: t.exposeString('displayName', { nullable: false }),
     email: t.string({
-      directives: { self: {} },
+      authScopes: (user) => ({ self: user.id })
       resolve: ({ email }) => email,
     }),
     locale: t.string({
-      directives: { self: {} },
+      authScopes: (user) => ({ self: user.id })
       resolve: ({ locale }) => locale,
     }),
     username: t.exposeString('username', { nullable: false }),
@@ -129,8 +129,8 @@ To make nodes available at the top level, we need to add a query. For example a 
 builder.queryFields((t) => ({
   user: t.prismaField({
     args: { username: t.arg.string({ required: true }) },
-    directives: {
-      requiresAuth: { role: 'User' },
+    authScopes: {
+      role: 'User',
     },
     resolve: (query, _, { username }) =>
       prisma.user.findUnique({
@@ -150,7 +150,7 @@ The above code generates the following GraphQL schema automatically:
 
 ```graphql
 type User implements Node {
-  access: Role @self
+  access: Role
   caughtPokemon(
     after: String
     before: String
@@ -158,9 +158,9 @@ type User implements Node {
     last: Int
   ): UserCaughtPokemonConnection!
   displayName: String!
-  email: String @self
+  email: String
   id: ID!
-  locale: String @self
+  locale: String
   username: String!
 }
 ```
@@ -183,12 +183,12 @@ When you make a change to a file in `src/`, the server restarts instantly. Every
 
 Pothos Nodes are expected to be added in `src/graphql/nodes` and Mutations in `src/graphql/mutations`. When you add a new file, run `pnpm generate-graphql` to automatically pull them into your GraphQL schema.
 
-### GraphQL Directives
+### Auth scopes
 
-This template supports two directives to control the visibility of fields in the GraphQL schema:
+This template supports two auth scopes to control the access to fields in the GraphQL schema:
 
-- `@self` on the field level to make the field visible only to the currently authenticated user (`viewer`).
-- `@requiresAuth(role: "User")` or `@requiresAuth(role: "Admin")` on the object or field level to make the field visible only to users with the specified role. The `role` is a string that can be anything you want. You can add your own roles in the Prisma schema and use them here.
+- `self` accepts a user ID and will grant access if the id matches the currently authenticated user (`viewer`).
+- `role: "User"` or `role: "Admin"` makes the field accessible only to users with the specified role. The `role` matches the `Role` enum in the prisma schema. You can add your own roles in the Prisma schema and use them here.
 
 ### JSON Types in the Database
 

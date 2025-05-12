@@ -16,7 +16,7 @@ const MAX_RESULTS = 10;
 const User = builder.prismaNode('User', {
   fields: (t) => ({
     access: t.field({
-      directives: { self: {} },
+      authScopes: (user) => ({ self: user.id }),
       resolve: ({ access }) => access,
       type: RoleEnum,
     }),
@@ -29,11 +29,11 @@ const User = builder.prismaNode('User', {
     }),
     displayName: t.exposeString('displayName', { nullable: false }),
     email: t.string({
-      directives: { self: {} },
+      authScopes: (user) => ({ self: user.id }),
       resolve: ({ email }) => email,
     }),
     locale: t.string({
-      directives: { self: {} },
+      authScopes: (user) => ({ self: user.id }),
       resolve: ({ locale }) => locale,
     }),
     username: t.exposeString('username', { nullable: false }),
@@ -51,10 +51,10 @@ builder.queryFields((t) => ({
     args: {
       name: t.arg.string({ required: true }),
     },
-    cursor: 'id',
-    directives: {
-      requiresAuth: { role: 'User' },
+    authScopes: {
+      role: 'User',
     },
+    cursor: 'id',
     resolve: (query, _, { name }) => {
       name = name.trim();
       return prisma.user.findMany({
@@ -85,8 +85,8 @@ builder.queryFields((t) => ({
   }),
   user: t.prismaField({
     args: { username: t.arg.string({ required: true }) },
-    directives: {
-      requiresAuth: { role: 'User' },
+    authScopes: {
+      role: 'User',
     },
     resolve: (query, _, { username }) =>
       prisma.user.findUnique({
