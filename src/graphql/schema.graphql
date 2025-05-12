@@ -1,8 +1,3 @@
-schema {
-  query: Query
-  mutation: Mutation
-}
-
 type CaughtPokemon implements Node {
   caughtAt: String!
   id: ID!
@@ -14,7 +9,7 @@ type CaughtPokemon implements Node {
 }
 
 type Mutation {
-  updateDisplayName(displayName: String!): User @requiresAuth(role: "User")
+  updateDisplayName(displayName: String!): User
 }
 
 interface Node {
@@ -38,7 +33,7 @@ type Pokemon implements Node {
 type Query {
   findUsers(after: String, before: String, first: Int, last: Int, name: String!): QueryFindUsersConnection
   node(id: ID!): Node
-  pokemon(id: String!): Pokemon
+  pokemon(id: ID!): Pokemon
   user(username: String!): User
   viewer: User
 }

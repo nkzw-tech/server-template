@@ -1,6 +1,5 @@
 import SchemaBuilder from '@pothos/core';
 import ComplexityPlugin from '@pothos/plugin-complexity';
-import DirectivePlugin from '@pothos/plugin-directives';
 import PrismaPlugin from '@pothos/plugin-prisma';
 import RelayPlugin from '@pothos/plugin-relay';
 import ScopeAuthPlugin from '@pothos/plugin-scope-auth';
@@ -18,15 +17,6 @@ interface PothosTypes extends Partial<PothosSchemaTypes.UserSchemaTypes> {
     self: string;
   };
   Context: Context;
-  Directives: {
-    requiresAuth: {
-      args: { role: Role };
-      locations: 'OBJECT' | 'FIELD_DEFINITION';
-    };
-    self: {
-      locations: 'FIELD_DEFINITION';
-    };
-  };
   PrismaTypes: PrismaTypes;
 }
 
@@ -40,14 +30,7 @@ const builder = new SchemaBuilder<PothosTypes>({
       depth: 20,
     },
   },
-  directives: { useGraphQLToolsUnorderedDirectives: true },
-  plugins: [
-    ScopeAuthPlugin,
-    ComplexityPlugin,
-    DirectivePlugin,
-    PrismaPlugin,
-    RelayPlugin,
-  ],
+  plugins: [ScopeAuthPlugin, ComplexityPlugin, PrismaPlugin, RelayPlugin],
   prisma: {
     client: prisma,
     exposeDescriptions: false,
