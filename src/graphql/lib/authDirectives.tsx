@@ -45,18 +45,13 @@ export class AuthDirectivesPlugin<
       typeConfig.kind === 'Enum' ||
       typeConfig.kind === 'Scalar' ||
       typeConfig.kind === 'InputObject' ||
-      typeConfig.kind === 'Union'
+      typeConfig.kind === 'Union' ||
+      !typeConfig.pothosOptions.authScopes
     ) {
       return typeConfig;
     }
 
-    const { authScopes } = typeConfig.pothosOptions;
-
-    if (!authScopes) {
-      return typeConfig;
-    }
-
-    const scopes = this.#resolveScopes(authScopes);
+    const scopes = this.#resolveScopes(typeConfig.pothosOptions.authScopes);
 
     return {
       ...typeConfig,
