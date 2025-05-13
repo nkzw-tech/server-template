@@ -1,3 +1,8 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
 type CaughtPokemon implements Node {
   caughtAt: String!
   id: ID!
@@ -9,7 +14,7 @@ type CaughtPokemon implements Node {
 }
 
 type Mutation {
-  updateDisplayName(displayName: String!): User
+  updateDisplayName(displayName: String!): User @auth(role: "User")
 }
 
 interface Node {
@@ -31,10 +36,10 @@ type Pokemon implements Node {
 }
 
 type Query {
-  findUsers(after: String, before: String, first: Int, last: Int, name: String!): QueryFindUsersConnection
+  findUsers(after: String, before: String, first: Int, last: Int, name: String!): QueryFindUsersConnection @auth(role: "User")
   node(id: ID!): Node
-  pokemon(id: ID!): Pokemon
-  user(username: String!): User
+  pokemon(id: ID!): Pokemon @auth(role: "User")
+  user(username: String!): User @auth(role: "User")
   viewer: User
 }
 
@@ -54,12 +59,12 @@ enum Role {
 }
 
 type User implements Node {
-  access: Role
+  access: Role @auth(self: true)
   caughtPokemon(after: String, before: String, first: Int, last: Int): UserCaughtPokemonConnection!
   displayName: String!
-  email: String
+  email: String @auth(self: true)
   id: ID!
-  locale: String
+  locale: String @auth(self: true)
   username: String!
 }
 

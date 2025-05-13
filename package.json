@@ -12,10 +12,12 @@
     "pnpm": ">=10.0.0"
   },
   "dependencies": {
+    "@graphql-tools/utils": "^10.8.6",
     "@nkzw/core": "^1.2.1",
     "@nkzw/define-env": "^1.1.0",
     "@pothos/core": "^4.6.2",
     "@pothos/plugin-complexity": "^4.1.1",
+    "@pothos/plugin-directives": "^4.2.1",
     "@pothos/plugin-prisma": "^4.8.1",
     "@pothos/plugin-relay": "^4.4.2",
     "@pothos/plugin-scope-auth": "^4.1.3",

@@ -13,6 +13,9 @@ importers:
 
   .:
     dependencies:
+      '@graphql-tools/utils':
+        specifier: ^10.8.6
+        version: 10.8.6(graphql@16.11.0)
       '@nkzw/core':
         specifier: ^1.2.1
         version: 1.2.1
@@ -25,6 +28,9 @@ importers:
       '@pothos/plugin-complexity':
         specifier: ^4.1.1
         version: 4.1.1(@pothos/core@4.6.2(graphql@16.11.0))(graphql@16.11.0)
+      '@pothos/plugin-directives':
+        specifier: ^4.2.1
+        version: 4.2.1(graphql@16.11.0)
       '@pothos/plugin-prisma':
         specifier: ^4.8.1
         version: 4.8.1(@pothos/core@4.6.2(graphql@16.11.0))(@prisma/client@6.7.0(prisma@6.7.0(typescript@5.8.3))(typescript@5.8.3))(graphql@16.11.0)(typescript@5.8.3)
@@ -604,6 +610,11 @@ packages:
     resolution: {integrity: sha512-esP0ZandOsNtMge8pdQugdogOBpW96tFObtFPfjx8Ar80mWcR467mLwfRjhK+2JBycZYhgCT8qrXksDYma8sAA==}
     peerDependencies:
       '@pothos/core': '*'
+      graphql: ^16.10.0
+
+  '@pothos/plugin-directives@4.2.1':
+    resolution: {integrity: sha512-Y9V/M2VhxMWP2UftqEWY4W+QbU2KNl3MVCTvVhsyfnSNeJp4ARU2IIGrp1/LHlaCAjNwpmceDFF4OxBZn0Kx6A==}
+    peerDependencies:
       graphql: ^16.10.0
 
   '@pothos/plugin-prisma@4.8.1':
@@ -3774,6 +3785,10 @@ snapshots:
   '@pothos/plugin-complexity@4.1.1(@pothos/core@4.6.2(graphql@16.11.0))(graphql@16.11.0)':
     dependencies:
       '@pothos/core': 4.6.2(graphql@16.11.0)
+      graphql: 16.11.0
+
+  '@pothos/plugin-directives@4.2.1(graphql@16.11.0)':
+    dependencies:
       graphql: 16.11.0
 
   '@pothos/plugin-prisma@4.8.1(@pothos/core@4.6.2(graphql@16.11.0))(@prisma/client@6.7.0(prisma@6.7.0(typescript@5.8.3))(typescript@5.8.3))(graphql@16.11.0)(typescript@5.8.3)':

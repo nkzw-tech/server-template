@@ -1,5 +1,6 @@
 import SchemaBuilder from '@pothos/core';
 import ComplexityPlugin from '@pothos/plugin-complexity';
+import DirectivesPlugin from '@pothos/plugin-directives';
 import PrismaPlugin from '@pothos/plugin-prisma';
 import RelayPlugin from '@pothos/plugin-relay';
 import ScopeAuthPlugin from '@pothos/plugin-scope-auth';
@@ -8,6 +9,7 @@ import { Role } from '../prisma/prisma-client/client.ts';
 import prisma from '../prisma/prisma.tsx';
 import isAdmin from '../user/isAdmin.tsx';
 import { Context } from './context.tsx';
+import AuthDirectivesPlugin from './lib/authDirectives.tsx';
 import decodeGlobalID from './lib/decodeGlobalID.tsx';
 import encodeGlobalID from './lib/encodeGlobalID.tsx';
 
@@ -30,7 +32,17 @@ const builder = new SchemaBuilder<PothosTypes>({
       depth: 20,
     },
   },
-  plugins: [ScopeAuthPlugin, ComplexityPlugin, PrismaPlugin, RelayPlugin],
+  directives: {
+    useGraphQLToolsUnorderedDirectives: true,
+  },
+  plugins: [
+    ScopeAuthPlugin,
+    ComplexityPlugin,
+    PrismaPlugin,
+    RelayPlugin,
+    AuthDirectivesPlugin,
+    DirectivesPlugin,
+  ],
   prisma: {
     client: prisma,
     exposeDescriptions: false,
