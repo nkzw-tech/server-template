@@ -1,9 +1,10 @@
 import SchemaBuilder, {
   BasePlugin,
   PothosOutputFieldConfig,
+  PothosTypeConfig,
   SchemaTypes,
 } from '@pothos/core';
-import { FieldAuthScopes } from '@pothos/plugin-scope-auth';
+import { FieldAuthScopes, TypeAuthScopes } from '@pothos/plugin-scope-auth';
 
 declare global {
   export namespace PothosSchemaTypes {
@@ -39,8 +40,40 @@ export class AuthDirectivesPlugin<
     };
   }
 
+  override onTypeConfig(typeConfig: PothosTypeConfig): PothosTypeConfig {
+    if (
+      typeConfig.kind === 'Enum' ||
+      typeConfig.kind === 'Scalar' ||
+      typeConfig.kind === 'InputObject' ||
+      typeConfig.kind === 'Union'
+    ) {
+      return typeConfig;
+    }
+
+    const { authScopes } = typeConfig.pothosOptions;
+
+    if (!authScopes) {
+      return typeConfig;
+    }
+
+    const scopes = this.#resolveScopes(authScopes);
+
+    return {
+      ...typeConfig,
+      extensions: {
+        ...typeConfig.extensions,
+        directives: {
+          ...(typeConfig.extensions?.directives ?? {}),
+          auth: scopes,
+        },
+      },
+    };
+  }
+
   #resolveScopes(
-    authScopes: FieldAuthScopes<Types, object, Record<string, unknown>>,
+    authScopes:
+      | FieldAuthScopes<Types, object, Record<string, unknown>>
+      | TypeAuthScopes<SchemaTypes, object>,
   ) {
     if (typeof authScopes !== 'function') {
       return authScopes;
