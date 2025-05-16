@@ -11,14 +11,6 @@ builder.mutationField('updateName', (t) =>
       role: 'User',
     },
     resolve: async (query, _, { name }, { sessionUser }) => {
-      const user =
-        sessionUser &&
-        (await prisma.user.findUniqueOrThrow({
-          where: {
-            id: sessionUser.id,
-          },
-        }));
-
       name = name.trim();
 
       if (name.length < 2 || name.length > 32) {
@@ -27,13 +19,10 @@ builder.mutationField('updateName', (t) =>
 
       await auth.api.updateUser({ body: { name } });
 
-      return await prisma.user.update({
+      return await prisma.user.findUniqueOrThrow({
         ...query,
-        data: {
-          name,
-        },
         where: {
-          id: user.id,
+          id: sessionUser.id,
         },
       });
     },
