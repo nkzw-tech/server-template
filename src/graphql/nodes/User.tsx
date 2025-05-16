@@ -17,18 +17,15 @@ const User = builder.prismaNode('User', {
         orderBy: { caughtAt: 'asc' },
       },
     }),
-    email: t.string({
+    email: t.exposeString('email', {
       authScopes: (user) => ({ self: user.id }),
-      resolve: ({ email }) => email,
     }),
-    locale: t.string({
+    locale: t.exposeString('locale', {
       authScopes: (user) => ({ self: user.id }),
-      resolve: ({ locale }) => locale,
     }),
     name: t.exposeString('name', { nullable: false }),
-    role: t.string({
+    role: t.exposeString('role', {
       authScopes: (user) => ({ self: user.id }),
-      resolve: ({ role }) => role,
     }),
     username: t.exposeString('username'),
   }),
