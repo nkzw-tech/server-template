@@ -9,17 +9,21 @@ const prisma = new PrismaClient();
 
 const users = new Set([
   {
+    data: {
+      username: 'admin',
+    },
     email: 'admin@nakazawa.dev',
     name: 'Admin',
     password: 'not-a-secure-password',
     role: 'admin',
-    username: 'admin',
   },
   {
+    data: {
+      username: 'first-user',
+    },
     email: 'first-user@nakazawa.dev',
     name: 'First User',
     password: 'not-a-secure-password-either',
-    username: 'first-user',
   },
 ] as const);
 
