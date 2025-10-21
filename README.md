@@ -26,7 +26,7 @@ You'll need Node.js 23+ and pnpm 10+ to use this template.
 - Run `pnpm install && pnpm generate-graphql`.
 - Set up a Postgres database locally and add the connection string to `.env` as `DATABASE_URL` or run `docker-compose up -d` to start postgres in a docker container.
 - `pnpm prisma migrate dev` to create the database, run the migrations, and seed the database.
-  - **Note**: If the database already exists, the seed script is not executed. In that case, manually run `pnpm prisma db seed`.
+  - **Note**: If the database already exists, the [seed script is not executed](https://www.prisma.io/docs/orm/prisma-migrate/workflows/seeding#integrated-seeding-with-prisma-migrate). In that case, manually run `pnpm prisma db seed`.
 - Run `pnpm dev` to start the server.
 - Open `http://localhost:9000/graphql` in your browser to see the GraphiQL, a GraphQL playground.
 - Open the Dev Tools and paste this code into the console to authenticate:
