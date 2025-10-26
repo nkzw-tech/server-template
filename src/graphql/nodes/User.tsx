@@ -1,10 +1,5 @@
 import prisma from '../../prisma/prisma.tsx';
 import builder from '../builder.tsx';
-import decodeIDOrThrow from '../lib/decodeIDOrThrow.tsx';
-import encodeGlobalID from '../lib/encodeGlobalID.tsx';
-
-export const encodeUserID = (id: string) => encodeGlobalID('User', id);
-export const decodeUserID = (id: string) => decodeIDOrThrow('User', id);
 
 const MAX_RESULTS = 10;
 
