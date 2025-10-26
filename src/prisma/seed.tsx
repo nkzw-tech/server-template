@@ -3,9 +3,7 @@ import { styleText } from 'node:util';
 import random from '@nkzw/core/random.js';
 import { arrayToShuffled } from 'array-shuffle';
 import { auth } from '../lib/auth.tsx';
-import { PrismaClient } from './prisma-client/client.ts';
-
-const prisma = new PrismaClient();
+import prisma from './prisma.tsx';
 
 const users = new Set([
   {
