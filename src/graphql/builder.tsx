@@ -53,7 +53,8 @@ const builder = new SchemaBuilder<PothosTypes>({
     clientMutationId: 'omit',
     cursorType: 'String',
     decodeGlobalID,
-    encodeGlobalID,
+    encodeGlobalID: (typename, id) =>
+      encodeGlobalID(typename as keyof PrismaTypes, id),
     nodesQueryOptions: false,
   },
   scopeAuth: {
