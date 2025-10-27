@@ -1,4 +1,7 @@
+import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from './prisma-client/client.ts';
+
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 
 declare global {
   namespace PrismaJson {
@@ -14,4 +17,4 @@ declare global {
   }
 }
 
-export default new PrismaClient();
+export default new PrismaClient({ adapter });

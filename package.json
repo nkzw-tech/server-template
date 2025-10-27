@@ -8,11 +8,13 @@
   "author": "Christoph Nakazawa <christoph.pojer@gmail.com>",
   "type": "module",
   "scripts": {
-    "dev": "NODE_ENV=development node_modules/.bin/nodemon -q -I --exec node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm --env-file .env src/index.tsx",
+    "build": "tsdown",
+    "dev": "NODE_ENV=development node_modules/.bin/nodemon -q -I --exec node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm --env-file .env src/index.ts",
     "dev:setup": "pnpm prisma generate && pnpm generate-graphql",
     "format": "prettier --experimental-cli --write .",
     "generate-graphql": "node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm ./scripts/generate-graphql.tsx",
     "preinstall": "command -v git >/dev/null 2>&1 && git config core.hooksPath git-hooks || exit 0",
+    "postinstall": "pnpm dev:setup",
     "lint": "eslint --cache .",
     "lint:format": "prettier --experimental-cli --cache --check .",
     "test": "npm-run-all --parallel tsc:check vitest:run lint lint:format",
@@ -36,7 +38,8 @@
     "@pothos/plugin-prisma": "^4.12.0",
     "@pothos/plugin-relay": "^4.6.2",
     "@pothos/plugin-scope-auth": "^4.1.6",
-    "@prisma/client": "^6.17.1",
+    "@prisma/adapter-pg": "^6.18.0",
+    "@prisma/client": "^6.18.0",
     "array-shuffle": "^4.0.0",
     "better-auth": "^1.3.28",
     "graphql": "^16.11.0",
@@ -56,14 +59,15 @@
     "npm-run-all2": "^8.0.4",
     "prettier": "^3.6.2",
     "prettier-plugin-packagejson": "^2.5.19",
-    "prisma": "^6.17.1",
+    "prisma": "^6.18.0",
     "prisma-json-types-generator": "^3.6.2",
     "ts-node": "^10.9.2",
+    "tsdown": "^0.15.9",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
   },
   "engines": {
-    "node": ">=24.0.0",
+    "node": ">=22.0.0",
     "pnpm": ">=10.0.0"
   }
 }

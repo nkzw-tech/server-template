@@ -12,32 +12,7 @@ import env from './lib/env.tsx';
 import prisma from './prisma/prisma.tsx';
 import { toSessionUser } from './user/SessionUser.tsx';
 
-try {
-  await prisma.$connect();
-} catch (error) {
-  console.error(
-    `${styleText(['red', 'bold'], 'Prisma Database Connection Error')}\n`,
-    error,
-  );
-  process.exit(1);
-}
-
-const name = 'Pothos GraphQL Server';
-
-const {
-  values: { port: portArg },
-} = parseArgs({
-  options: {
-    port: {
-      default: '9000',
-      short: 'p',
-      type: 'string',
-    },
-  },
-});
-
 const origin = env('CLIENT_DOMAIN');
-const port = (portArg && parseInteger(portArg)) || 9000;
 const app = new Hono();
 
 app.use(
@@ -69,18 +44,50 @@ app.on(['POST', 'GET', 'OPTIONS'], '/graphql/*', async (context) => {
 
 app.all('/*', (context) => context.redirect(origin));
 
-serve({ fetch: app.fetch, port }, () =>
-  console.log(
-    `${styleText(['green', 'bold'], `${name}\n  ➜`)}  Server running on port ${styleText('bold', String(port))}.\n`,
-  ),
-);
-
-const setTitle = (title: string) => {
-  process.title = title;
-  if (process.stdout.isTTY) {
-    process.stdout.write(
-      `${String.fromCharCode(27)}]0;🚀 ${title}${String.fromCharCode(7)}`,
+if (process.env.npm_lifecycle_event === 'dev') {
+  try {
+    await prisma.$connect();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(
+      `${styleText(['red', 'bold'], 'Prisma Database Connection Error')}\n`,
+      error,
     );
+    process.exit(1);
   }
-};
-setTimeout(() => setTitle(name), 0);
+
+  const name = 'Pothos GraphQL Server';
+
+  const {
+    values: { port: portArg },
+  } = parseArgs({
+    options: {
+      port: {
+        default: '9000',
+        short: 'p',
+        type: 'string',
+      },
+    },
+  });
+
+  const port = (portArg && parseInteger(portArg)) || 9000;
+
+  serve({ fetch: app.fetch, port }, () =>
+    // eslint-disable-next-line no-console
+    console.log(
+      `${styleText(['green', 'bold'], `${name}\n  ➜`)}  Server running on port ${styleText('bold', String(port))}.\n`,
+    ),
+  );
+
+  const setTitle = (title: string) => {
+    process.title = title;
+    if (process.stdout.isTTY) {
+      process.stdout.write(
+        `${String.fromCharCode(27)}]0;🚀 ${title}${String.fromCharCode(7)}`,
+      );
+    }
+  };
+  setTimeout(() => setTitle(name), 0);
+}
+
+export default app;
