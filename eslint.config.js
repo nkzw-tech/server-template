@@ -3,10 +3,19 @@ import nkzw from '@nkzw/eslint-config';
 export default [
   ...nkzw,
   {
-    ignores: ['src/prisma/prisma-client/*', 'src/prisma/pothos-types.ts'],
+    ignores: [
+      'dist/',
+      'src/prisma/prisma-client/*',
+      'src/prisma/pothos-types.ts',
+    ],
   },
   {
-    files: ['src/index.tsx', 'src/prisma/seed.tsx', 'scripts/**/*.tsx'],
+    files: [
+      'scripts/**/*.tsx',
+      'src/app.tsx',
+      'src/index.tsx',
+      'src/prisma/seed.tsx',
+    ],
     rules: {
       'no-console': 0,
     },
