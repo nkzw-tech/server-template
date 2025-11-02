@@ -255,6 +255,20 @@ You need to build your own authentication flow in your client using [Better Auth
 
 The sample data in this repository is insecure demo data. Before deploying a server built using this template, make sure to at least change the passwords for the seed users and the authentication secret in the `.env` file.
 
+## Deployment to serverless
+
+This template can also be deployed to serverless hosting platforms like Vercel. To increase portability, we strip all TypeScript types and bundle the app via [tsdown](https://tsdown.dev/) into a single file at `dist/index.js`.
+
+To deploy on Vercel with the default configurations, specify the following options for the project:
+
+- **Framework Preset**: Hono
+- **Build Command**: `npm run build`
+- **Output Directory**: `dist`
+
+Be sure to add the necessary environment variables.
+
+After which, the GraphQL endpoint can be accessed at `https://yourdomain.vercel.app/graphql`.
+
 ## Building a client
 
 This template is designed to be used with [Relay](https://relay.dev/) as the client. Relay is a mature choice for a GraphQL client for TypeScript apps. The CORS policy expects the client to run at `http://localhost:5173` during development. If you are using a different port, change the `DEVELOPMENT_DOMAIN` in `.env`.

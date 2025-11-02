@@ -6,6 +6,7 @@ generator client {
   importFileExtension = "ts"
   output              = "./prisma-client"
   provider            = "prisma-client"
+  engineType          = "client"
 }
 
 generator pothos {

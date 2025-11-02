@@ -6,3 +6,4 @@ src/graphql/schemaImportMap.tsx
 src/prisma/pothos-types.ts
 src/prisma/prisma-client/
 tsconfig.tsbuildinfo
+dist/

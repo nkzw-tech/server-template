@@ -22,22 +22,7 @@ try {
   process.exit(1);
 }
 
-const name = 'Pothos GraphQL Server';
-
-const {
-  values: { port: portArg },
-} = parseArgs({
-  options: {
-    port: {
-      default: '9000',
-      short: 'p',
-      type: 'string',
-    },
-  },
-});
-
 const origin = env('CLIENT_DOMAIN');
-const port = (portArg && parseInteger(portArg)) || 9000;
 const app = new Hono();
 
 app.use(
@@ -69,18 +54,36 @@ app.on(['POST', 'GET', 'OPTIONS'], '/graphql/*', async (context) => {
 
 app.all('/*', (context) => context.redirect(origin));
 
-serve({ fetch: app.fetch, port }, () =>
-  console.log(
-    `${styleText(['green', 'bold'], `${name}\n  ➜`)}  Server running on port ${styleText('bold', String(port))}.\n`,
-  ),
-);
+if (process.env.npm_lifecycle_event === 'dev') {
+  const name = 'Pothos GraphQL Server';
+  const {
+    values: { port: portArg },
+  } = parseArgs({
+    options: {
+      port: {
+        default: '9000',
+        short: 'p',
+        type: 'string',
+      },
+    },
+  });
 
-const setTitle = (title: string) => {
-  process.title = title;
-  if (process.stdout.isTTY) {
-    process.stdout.write(
-      `${String.fromCharCode(27)}]0;🚀 ${title}${String.fromCharCode(7)}`,
-    );
-  }
-};
-setTimeout(() => setTitle(name), 0);
+  const port = (portArg && parseInteger(portArg)) || 9000;
+  serve({ fetch: app.fetch, port }, () =>
+    console.log(
+      `${styleText(['green', 'bold'], `${name}\n  ➜`)}  Server running on port ${styleText('bold', String(port))}.\n`,
+    ),
+  );
+
+  const setTitle = (title: string) => {
+    process.title = title;
+    if (process.stdout.isTTY) {
+      process.stdout.write(
+        `${String.fromCharCode(27)}]0;🚀 ${title}${String.fromCharCode(7)}`,
+      );
+    }
+  };
+  setTimeout(() => setTitle(name), 0);
+}
+
+export default app;

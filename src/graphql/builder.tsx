@@ -4,7 +4,7 @@ import DirectivesPlugin from '@pothos/plugin-directives';
 import PrismaPlugin from '@pothos/plugin-prisma';
 import RelayPlugin from '@pothos/plugin-relay';
 import ScopeAuthPlugin from '@pothos/plugin-scope-auth';
-import PrismaTypes from '../prisma/pothos-types.ts';
+import PrismaTypes, { getDatamodel } from '../prisma/pothos-types.ts';
 import prisma from '../prisma/prisma.tsx';
 import isAdmin from '../user/isAdmin.tsx';
 import { Context } from './context.tsx';
@@ -44,6 +44,7 @@ const builder = new SchemaBuilder<PothosTypes>({
   ],
   prisma: {
     client: prisma,
+    dmmf: getDatamodel(),
     exposeDescriptions: false,
     filterConnectionTotalCount: true,
     maxConnectionSize: 120,
