@@ -18,7 +18,7 @@
     "lint": "eslint --cache .",
     "lint:format": "prettier --experimental-cli --cache --check .",
     "test": "npm-run-all --parallel tsc:check vitest:run lint lint:format",
-    "tsc:check": "tsc",
+    "tsc:check": "tsgo",
     "vitest:run": "vitest run"
   },
   "nodemonConfig": {
@@ -52,6 +52,7 @@
     "@prettier/plugin-oxc": "^0.1.3",
     "@swc/core": "^1.15.3",
     "@types/node": "^24.10.1",
+    "@typescript/native-preview": "7.0.0-dev.20251209.1",
     "dotenv": "^17.2.3",
     "eslint": "^9.39.1",
     "glob": "^13.0.0",
