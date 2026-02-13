@@ -1,7 +1,7 @@
 #!/usr/bin/env NODE_ENV=development node_modules/.bin/nodemon -q -I --exec node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm --env-file .env
-import { parseArgs, styleText } from 'node:util';
 import { serve } from '@hono/node-server';
 import parseInteger from '@nkzw/core/parseInteger.js';
+import { parseArgs, styleText } from 'node:util';
 import app from './app.tsx';
 
 const name = 'Pothos GraphQL Server';
@@ -28,9 +28,7 @@ serve({ fetch: app.fetch, port }, () =>
 const setTitle = (title: string) => {
   process.title = title;
   if (process.stdout.isTTY) {
-    process.stdout.write(
-      `${String.fromCharCode(27)}]0;🚀 ${title}${String.fromCharCode(7)}`,
-    );
+    process.stdout.write(`${String.fromCharCode(27)}]0;🚀 ${title}${String.fromCharCode(7)}`);
   }
 };
 setTimeout(() => setTitle(name), 0);

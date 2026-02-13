@@ -54,15 +54,13 @@ const builder = new SchemaBuilder<PothosTypes>({
     clientMutationId: 'omit',
     cursorType: 'String',
     decodeGlobalID,
-    encodeGlobalID: (typename, id) =>
-      encodeGlobalID(typename as keyof PrismaTypes, id),
+    encodeGlobalID: (typename, id) => encodeGlobalID(typename as keyof PrismaTypes, id),
     nodesQueryOptions: false,
   },
   scopeAuth: {
     authScopes: ({ sessionUser }) => ({
       role: (role) =>
-        !!sessionUser &&
-        (sessionUser.role.split(',').includes(role) || isAdmin(sessionUser)),
+        !!sessionUser && (sessionUser.role.split(',').includes(role) || isAdmin(sessionUser)),
       self: (id) => !!sessionUser && id === sessionUser.id,
     }),
   },

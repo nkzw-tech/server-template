@@ -14,9 +14,7 @@ declare global {
   }
 }
 
-export class AuthDirectivesPlugin<
-  Types extends SchemaTypes,
-> extends BasePlugin<Types> {
+export class AuthDirectivesPlugin<Types extends SchemaTypes> extends BasePlugin<Types> {
   override onOutputFieldConfig(
     fieldConfig: PothosOutputFieldConfig<Types>,
   ): PothosOutputFieldConfig<Types> | null {
@@ -82,10 +80,7 @@ export class AuthDirectivesPlugin<
       }
 
       return Object.fromEntries(
-        Object.entries(resolved).map(([key, value]) => [
-          key,
-          value === undefined ? true : value,
-        ]),
+        Object.entries(resolved).map(([key, value]) => [key, value === undefined ? true : value]),
       );
     } catch {
       return {};

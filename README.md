@@ -154,12 +154,7 @@ The above code generates the following GraphQL schema automatically:
 ```graphql
 type User implements Node {
   access: Role
-  caughtPokemon(
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): UserCaughtPokemonConnection!
+  caughtPokemon(after: String, before: String, first: Int, last: Int): UserCaughtPokemonConnection!
   displayName: String!
   email: String
   id: ID!
