@@ -8,19 +8,11 @@
   },
   "type": "module",
   "scripts": {
-    "build": "tsdown",
+    "build": "vp pack",
     "dev": "NODE_ENV=development node_modules/.bin/nodemon -q -I --exec node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm --env-file .env src/index.tsx",
     "dev:setup": "pnpm prisma generate && pnpm generate-graphql",
-    "format": "oxfmt --write .",
     "generate-graphql": "node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm ./scripts/generate-graphql.tsx",
-    "lint": "oxlint --silent .",
-    "lint:fix": "oxlint --fix --silent .",
-    "lint:format": "oxfmt --check .",
-    "postinstall": "pnpm dev:setup",
-    "preinstall": "command -v git >/dev/null 2>&1 && git config core.hooksPath git-hooks || exit 0",
-    "test": "npm-run-all --parallel tsc:check vitest:run lint lint:format",
-    "tsc:check": "tsgo",
-    "vitest:run": "vitest run"
+    "prepare": "vp run dev:setup && vp config"
   },
   "dependencies": {
     "@graphql-tools/utils": "^11.0.0",
@@ -54,15 +46,13 @@
     "eslint-plugin-unused-imports": "~4.4.1",
     "glob": "^13.0.6",
     "nodemon": "^3.1.14",
-    "npm-run-all2": "^8.0.4",
     "oxfmt": "^0.41.0",
-    "oxlint": "^1.56.0",
     "prisma": "^7.5.0",
     "prisma-json-types-generator": "^4.1.1",
     "ts-node": "^10.9.2",
-    "tsdown": "0.21.4",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.0"
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
   },
   "nodemonConfig": {
     "ext": "tsx",
@@ -73,5 +63,6 @@
   "engines": {
     "node": ">=22.0.0",
     "pnpm": ">=10.0.0"
-  }
+  },
+  "packageManager": "pnpm@10.32.1"
 }

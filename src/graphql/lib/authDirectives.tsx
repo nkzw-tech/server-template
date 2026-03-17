@@ -31,7 +31,7 @@ export class AuthDirectivesPlugin<Types extends SchemaTypes> extends BasePlugin<
       extensions: {
         ...fieldConfig.extensions,
         directives: {
-          ...(fieldConfig.extensions?.directives ?? {}),
+          ...(fieldConfig.extensions?.directives as Record<string, unknown>),
           auth: scopes,
         },
       },
@@ -56,7 +56,7 @@ export class AuthDirectivesPlugin<Types extends SchemaTypes> extends BasePlugin<
       extensions: {
         ...typeConfig.extensions,
         directives: {
-          ...(typeConfig.extensions?.directives ?? {}),
+          ...(typeConfig.extensions?.directives as Record<string, unknown>),
           auth: scopes,
         },
       },

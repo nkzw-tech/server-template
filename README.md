@@ -14,20 +14,20 @@ This is a template for a Node.js GraphQL server using Prisma and Pothos includin
 - [`graphql-yoga`](https://the-guild.dev/graphql/yoga-server)
 - [Hono](https://hono.dev/)
 - [Better Auth](https://better-auth.com/) for Authentication.
-- [pnpm](https://pnpm.io/)
+- [Vite+](https://viteplus.dev/)
 
 Check out the [`nkzw-tech/expo-app-template`](https://github.com/nkzw-tech/expo-app-template/tree/with-relay) for a React Native template with the Relay GraphQL client, or the [`nkzw-tech/web-app-template`](https://github.com/nkzw-tech/web-app-template/tree/with-relay) for building web apps.
 
 ## Setup
 
-You'll need Node.js 23+ and pnpm 10+ to use this template.
+You'll need Node.js 23+ and [Vite+](https://viteplus.dev/guide/) to use this template.
 
 - Start here: [Create a new app using this template](https://github.com/new?template_name=server-template&template_owner=nkzw-tech).
-- Run `pnpm install && pnpm generate-graphql`.
+- Run `vp install && vp run generate-graphql`.
 - Set up a Postgres database locally and add the connection string to `.env` as `DATABASE_URL` or run `docker-compose up -d` to start postgres in a docker container.
-- `pnpm prisma migrate dev` to create the database, run the migrations, and seed the database.
-  - **Note**: If the database already exists, the [seed script is not executed](https://www.prisma.io/docs/orm/prisma-migrate/workflows/seeding#integrated-seeding-with-prisma-migrate). In that case, manually run `pnpm prisma db seed`.
-- Run `pnpm dev` to start the server.
+- `vp run prisma migrate dev` to create the database, run the migrations, and seed the database.
+  - **Note**: If the database already exists, the [seed script is not executed](https://www.prisma.io/docs/orm/prisma-migrate/workflows/seeding#integrated-seeding-with-prisma-migrate). In that case, manually run `vp run prisma db seed`.
+- Run `vp run dev` to start the server.
 - Open `http://localhost:9000/graphql` in your browser to see the GraphiQL, a GraphQL playground.
 - Open the Dev Tools and paste this code into the console to authenticate:
 
@@ -179,7 +179,7 @@ When you make a change to a file in `src/`, the server restarts instantly. Every
 
 ### Adding GraphQL Types and Mutations
 
-Pothos Nodes are expected to be added in `src/graphql/nodes` and Mutations in `src/graphql/mutations`. When you add a new file, run `pnpm generate-graphql` to automatically pull them into your GraphQL schema.
+Pothos Nodes are expected to be added in `src/graphql/nodes` and Mutations in `src/graphql/mutations`. When you add a new file, run `vp run generate-graphql` to automatically pull them into your GraphQL schema.
 
 ### Auth scopes
 
@@ -219,7 +219,7 @@ type PokemonStats = Readonly<{
 }>;
 ```
 
-Running `pnpm prisma generate` connects the annoation with the type definition so that the `stats` field on `CaughtPokemon` is now typed as as `PokemonStats` when fetching or mutating database entries. For example, when you insert a new `CaughtPokemon` into the database, TypeScript will ensure you are providing all the correct fields:
+Running `vp run prisma generate` connects the annoation with the type definition so that the `stats` field on `CaughtPokemon` is now typed as as `PokemonStats` when fetching or mutating database entries. For example, when you insert a new `CaughtPokemon` into the database, TypeScript will ensure you are providing all the correct fields:
 
 ```tsx
 await prisma.caughtPokemon.create({

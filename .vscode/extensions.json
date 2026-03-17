@@ -1,8 +1,8 @@
 {
   "recommendations": [
-    "oxc.oxc-vscode",
     "sysoev.vscode-open-in-github",
     "usernamehw.errorlens",
-    "wix.vscode-import-cost"
+    "wix.vscode-import-cost",
+    "VoidZero.vite-plus-extension-pack"
   ]
 }
