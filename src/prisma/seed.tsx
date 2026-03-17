@@ -1,7 +1,7 @@
 #!/usr/bin/env NODE_ENV=development node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm --env-file .env
+import { styleText } from 'node:util';
 import random from '@nkzw/core/random.js';
 import { arrayToShuffled } from 'array-shuffle';
-import { styleText } from 'node:util';
 import { auth } from '../lib/auth.tsx';
 import prisma from './prisma.tsx';
 

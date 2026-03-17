@@ -1,9 +1,9 @@
 #!/usr/bin/env node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm
-import { globSync } from 'glob';
 import { createHash } from 'node:crypto';
 import { writeFileSync } from 'node:fs';
 import { join, posix, relative, sep } from 'node:path';
 import { styleText } from 'node:util';
+import { globSync } from 'glob';
 import { format } from 'oxfmt';
 
 console.log(styleText('bold', '› Generating GraphQL schema import map...'));

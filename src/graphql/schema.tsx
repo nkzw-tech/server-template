@@ -1,7 +1,7 @@
-import { printSchemaWithDirectives } from '@graphql-tools/utils';
-import './schemaImportMap.tsx';
 import { writeFileSync } from 'node:fs';
+import './schemaImportMap.tsx';
 import { join } from 'node:path';
+import { printSchemaWithDirectives } from '@graphql-tools/utils';
 import builder from './builder.tsx';
 
 const schema = builder.toSchema();

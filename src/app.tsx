@@ -1,7 +1,7 @@
+import { styleText } from 'node:util';
 import { createYoga } from 'graphql-yoga';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
-import { styleText } from 'node:util';
 import { Context } from './graphql/context.tsx';
 import schema from './graphql/schema.tsx';
 import { auth } from './lib/auth.tsx';
