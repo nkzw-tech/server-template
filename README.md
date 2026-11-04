@@ -1,5 +1,8 @@
 # Template for a Prisma, Pothos & GraphQL Server
 
+> [!IMPORTANT]
+> **This template is deprecated.** For a new Prisma and Pothos server, run `vp create fate` and choose the GraphQL starter. See [fate.technology](https://fate.technology/) for setup and documentation.
+
 _Type‑safe, stable, scalable._
 
 This is a template for a Node.js GraphQL server using Prisma and Pothos including basic authentication. It is designed as a starting point for building a GraphQL server with stability and scalability in mind. It features end-to-end type safety from the database, through GraphQL and all the way to the client. It is recommended to use [Relay](https://relay.dev/) as the client for servers built using this template.
@@ -16,13 +19,12 @@ This is a template for a Node.js GraphQL server using Prisma and Pothos includin
 - [Better Auth](https://better-auth.com/) for Authentication.
 - [Vite+](https://viteplus.dev/)
 
-Check out the [`nkzw-tech/expo-app-template`](https://github.com/nkzw-tech/expo-app-template/tree/with-relay) for a React Native template with the Relay GraphQL client, or the [`nkzw-tech/web-app-template`](https://github.com/nkzw-tech/web-app-template/tree/with-relay) for building web apps.
+For a React Native template with Relay, see the [Expo template's `with-relay` branch](https://github.com/nkzw-tech/expo-app-template/tree/with-relay).
 
-## Setup
+## Running an existing checkout
 
 You'll need Node.js 23+ and [Vite+](https://viteplus.dev/guide/) to use this template.
 
-- Start here: [Create a new app using this template](https://github.com/new?template_name=server-template&template_owner=nkzw-tech).
 - Run `vp install && vp run generate-graphql`.
 - Set up a Postgres database locally and add the connection string to `.env` as `DATABASE_URL` or run `docker-compose up -d` to start postgres in a docker container.
 - `vp run prisma migrate dev` to create the database, run the migrations, and seed the database.
